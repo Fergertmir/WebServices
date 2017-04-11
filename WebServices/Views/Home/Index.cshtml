@@ -1,6 +1,5 @@
 ﻿@using WebServices.Models
 
-@model IEnumerable<Reservation>
 @{
     ViewBag.Title = "Заявки на бронирование";
 }
@@ -29,8 +28,17 @@
 
     function removeItem(item) {
         sendAjaxRequest("DELETE", function () {
-            getAllItems()
+            for (var i = 0; i < model.reservations().length; i++) {
+                if (model.reservations()[i].ReservationId == item.ReservationId) {
+                    model.reservations.remove(model.reservations()[i]);
+                    break;
+                }
+            }
         }, item.ReservationId);
+    }
+
+    function handleCreateClick() {
+        model.displaySummary(false);
     }
 
     $(document).ready(function () {
@@ -64,6 +72,6 @@
         </div>
     </div>
     <div id="editor" class="section panel panel-primary">
-        @Html.Partial("Editor", new Reservation())
+        @Html.Partial("Editor")
     </div>
 }
