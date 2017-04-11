@@ -31,6 +31,7 @@
     function handleEditorClick() {
         sendAjaxRequest("POST", function (newItem) {
             model.reservations.push(newItem);
+            model.displaySummary(true);
         }, null, {
             ClientName: model.editor.name,
             Location: model.editor.location
@@ -45,10 +46,7 @@
 
 }
 
-@section Body {
-    <div id="summary" class="section panel panel-primary">
-        ...
-    </div>
+
     <div id="editor" class="section panel panel-primary">
         <div class="panel-heading">
             Создать заказ
@@ -68,4 +66,3 @@
             </button>
         </div>
     </div>
-}
